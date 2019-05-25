@@ -1,0 +1,20 @@
+[package]
+name = "cache"
+version = "0.1.0"
+authors = ["billyfbrain <billyfbrain@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+
+[dev-dependencies]
+rand = "0.6"
+criterion = "0.2"
+linked-hash-map = "0.5"
+
+[[bench]]
+name = "map"
+harness = false
+
+[[bench]]
+name = "cache"
+harness = false
