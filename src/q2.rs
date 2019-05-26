@@ -148,14 +148,11 @@ where
         self.callback.as_ref().map(|cb| cb(k, v));
     }
 
-    pub fn remove(&mut self, key: &K) -> bool {
+    pub fn remove(&mut self, key: &K) -> Option<V> {
         let mut s = self.hash_builder.build_hasher();
         key.hash(&mut s);
         self.out.remove(&s.finish());
-        self.main
-            .remove(key)
-            .or_else(|| self.in_.remove(key))
-            .is_some()
+        self.main.remove(key).or_else(|| self.in_.remove(key))
     }
 
     pub fn purge(&mut self) {

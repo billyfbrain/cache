@@ -31,8 +31,8 @@ where
         let max_size = if max_size < 1 { 1 } else { max_size };
         Cache {
             max_size,
-            hit_count:0,
-miss_count:0,
+            hit_count: 0,
+            miss_count: 0,
             callback: None,
             l_map: LinkedHashMap::with_capacity_and_hasher(max_size, hash_builder),
         }
@@ -58,9 +58,11 @@ miss_count:0,
         K: Borrow<Q>,
         Q: Eq + Hash,
     {
-        if self.l_map.contains_key(k) {
-            return self.l_map.get(k);
+        if let Some(v) = self.l_map.get(k) {
+            self.hit_count += 1;
+            return Some(&v);
         }
+        self.miss_count += 1;
         None
     }
 

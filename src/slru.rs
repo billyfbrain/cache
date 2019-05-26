@@ -128,11 +128,10 @@ where
         }
     }
 
-    pub fn remove(&mut self, key: &K) -> bool {
+    pub fn remove(&mut self, key: &K) -> Option<V> {
         self.main
             .remove(key)
             .or_else(|| self.in_.remove(key))
-            .is_some()
     }
 
     pub fn purge(&mut self) {
