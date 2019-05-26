@@ -106,9 +106,9 @@ where
             return Some(old_v);
         }
 
-        if self.in_.remove_entry(&key).is_some() {
+        if let Some(v) = self.in_.remove(&key) {
             self.main.push_front(key, value);
-            return None;
+            return Some(v);
         }
 
         let mut s = self.hash_builder.build_hasher();

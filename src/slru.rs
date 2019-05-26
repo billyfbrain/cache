@@ -97,10 +97,10 @@ where
             return Some(old_v);
         }
 
-        if self.in_.remove_entry(&key).is_some() {
+        if let Some(v) = self.in_.remove(&key) {
             self.ensure_space(true);
             self.main.push_front(key, value);
-            return None;
+            return Some(v);
         }
 
         self.ensure_space(false);
