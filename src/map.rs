@@ -445,6 +445,10 @@ where
     }
 }
 
+unsafe impl<K: Send, V: Send, S: Send> Send for LinkedHashMap<K, V, S> {}
+
+unsafe impl<K: Sync, V: Sync, S: Sync> Sync for LinkedHashMap<K, V, S> {}
+
 impl<K, V, S> Drop for LinkedHashMap<K, V, S> {
     fn drop(&mut self) {
         while let Some(_) = self.pop_front_node() {}
