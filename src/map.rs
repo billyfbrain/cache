@@ -225,7 +225,9 @@ impl<K, V, S> LinkedHashMap<K, V, S> {
             while let Some(node) = self.empty {
                 count += 1;
                 self.empty = node.as_ref().next;
-                Box::from_raw(node.as_ptr());
+                let Node { k, v, .. } = *Box::from_raw(node.as_ptr());
+                mem::forget(k);
+                mem::forget(v);
             }
         }
         assert_eq!(count, self.empty_len);
